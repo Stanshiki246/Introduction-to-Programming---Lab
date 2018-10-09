@@ -98,8 +98,8 @@ while True:
             TimeLeaving= input(">")
             print("Your parking costs Rp.{}. Thank you for coming here".format(P.getPrice(Number,TimeLeaving)))
             P.rmvCar(Number)
-    else:
-        print("Your car is not in here.")
+        else:
+            print("Your car is not in here.")
     # When option 5 is chosen, it will stop running.
     if mode == "5":
         break
