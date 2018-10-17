@@ -66,14 +66,14 @@ class Location(Vehicle):
         return float(self.Tprice)
 # Make a class function of TollGate
 class TollGate:
-    # Make a list of locations
-    locations =[]
+    # Make a list of 3 locations
+    L1 = Location("Senayan","",5000.0,7000.0,9000.0)
+    L2 = Location("Meruya","",6000.0,8000.0,10000.0)
+    L3 = Location("Pondok Aren","",18000.0,20000.0,25000.0)
+    locations =[L1,L2,L3]
     # Define a function to initialize class TollGate.
     def __init__(self,center):
         self.center = center
-    # Define a function to add location.
-    def addLocation(self,name,Cprice,Bprice,Tprice):
-        self.locations.append(Location(name,"",Cprice,Bprice,Tprice))
     # Define a function to get total number of locations
     def getNumofLoc(self):
         return len(self.locations)
@@ -82,8 +82,11 @@ class TollGate:
         return self.locations[int(index)]
 # Define a function to do Toll Payment system.
 def checking():
-    # Variable for inputting a specific index of location
-    number=int(input(">"))
+    print("1.Senayan\n2.Meruya\n3.Pondok Aren")
+    # Variable for inputting a specific number of location
+    numIn=int(input(">"))
+    # Variable for getting index of location
+    number = numIn - 1
     # Make a variable of True statement
     isInput = True
     #As long as statement is True, it will run until it reaches False statement.
@@ -122,38 +125,19 @@ T = TollGate("Jasa Marga")
 isStarting = True
 # As long as statement is True, it will run until it reaches break.
 while isStarting:
-        print("1.Add location\n2.Sum all fees\n3.Exit")
-        #Variable for inputting choice.
-        mode=input(">")
-        # when option 1 is selected, it will add location and its 3-vehicle categories based fees
-        if mode == "1":
-            locName = input("Enter the location: ")
-            set_car_price = float(input("Set car fee: "))
-            set_bus_price = float(input("Set bus fee: "))
-            set_truck_price = float(input("Set truck fee: "))
-            T.addLocation(locName,set_car_price,set_bus_price,set_truck_price)
-        # when option 2 is selected, it will check a specific location and do Toll Payment system.
-        elif mode == "2":
-            # Make a variable of True statement
-            isRunning = True
-            #As long as statement is True, it will run until it reaches False statement.
-            while isRunning:
-                print("Is there any location? Y/N")
-                # Variable for answer yes or no
-                answer=input(">")
-                # when answer is equal to "Y" or "y", it will do Toll Payment system based on a specific location.
-                if answer == "Y" or answer == "y":
-                    checking()
-                    isRunning=True
-                # When answer is equal to "N" or "n", it will show the grand total of Toll Fees based on all locations.
-                elif answer == "N" or answer == "n":
-                    grand_total = 0
-                    for i in range(T.getNumofLoc()):
-                        if T.getLocation(i).Revenue() != 0:
-                            grand_total += T.getLocation(i).Revenue()
-                    print("Grand total: {}".format(grand_total))
-                    isRunning = False
-        # when option 3 is selected, it will stop running.
-        elif mode == "3":
-            print("<Exit Program>")
+        print("Is there any location? Y/N")
+        # Variable for answer yes or no
+        answer=input(">")
+        # when answer is equal to "Y" or "y", it will do Toll Payment system based on a specific location.
+        if answer == "Y" or answer == "y":
+            checking()
+            isStarting=True
+        # When answer is equal to "N" or "n", it will show the grand total of Toll Fees based on all locations and stop running.
+        elif answer == "N" or answer == "n":
+            grand_total = 0
+            for i in range(T.getNumofLoc()):
+                if T.getLocation(i).Revenue() != 0:
+                    grand_total += T.getLocation(i).Revenue()
+            print("Grand total: {}".format(grand_total))
+            print("Exit program")
             break
